@@ -1,0 +1,37 @@
+{
+  "name": "base-gulp-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaroslavkolyagin/base-gulp-site.git"
+  },
+  "author": "Yaroslav Kolyagin (yaroslavkolyagin@gmail.com / yaroslavkolyagin.github.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yaroslavkolyagin/base-gulp-site/issues"
+  },
+  "homepage": "https://github.com/yaroslavkolyagin/base-gulp-site#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-csscomb": "^3.1.0",
+    "gulp-csso": "^4.0.1",
+    "gulp-less": "^4.0.1",
+    "gulp-pug": "^4.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "normalize.less": "^1.0.0"
+  }
+}
