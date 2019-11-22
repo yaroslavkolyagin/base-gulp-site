@@ -1,5 +1,11 @@
+Базовая сборка проекта pug+less+js
+
+Вновом проекте выполнить:
+npm init
 npm i --save-dev gulp browser-sync del gulp-concat gulp-rename gulp-pug gulp-less gulp-autoprefixer gulp-csso gulp-csscomb gulp-uglify gulp-svg-sprite
-npm i --save normalize.less jquery 
+npm i --save normalize.less jquery
+Перенести из этого репозитория папку app и файл gulpfile.js
+Выполнить gulp develop. 
 
 
 Примеры кода:
