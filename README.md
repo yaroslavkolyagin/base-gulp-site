@@ -22,3 +22,10 @@ picture
 Добавление svg из спрайта
 svg
 	use(href="img/sprite.svg#icon-name")
+
+Cписки:
+ul
+	each val, index in [ 'О Центре', 'Структура', 'Деятельность', 'Мероприятия', 'Пресс-центр', 'Отчеты', 'Партнеры', 'Контакты', 'Eng']
+		li
+			a(href="#" class=index == 0 ? 'active' : '')= val
+
