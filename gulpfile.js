@@ -1,17 +1,16 @@
 const
-	gulp = 			require('gulp');
-	browserSync = 	require('browser-sync').create();
-	del = 			require('del');
-	concat = 		require('gulp-concat');
-	rename = 		require("gulp-rename");
-
-	pug = 			require('gulp-pug');
-	less = 			require('gulp-less');
-	autoprefixer = 	require('gulp-autoprefixer');
-	csso = 			require('gulp-csso');
-	csscomb = 		require('gulp-csscomb');
-	uglify = 		require('gulp-uglify');
-	svgSprite =     require('gulp-svg-sprite');
+	gulp = require('gulp');
+	browserSync = require('browser-sync').create();
+	del = require('del');
+	concat = require('gulp-concat');
+	rename = require("gulp-rename");
+	pug = require('gulp-pug');
+	sass = require('gulp-sass')(require('sass'));
+	autoprefixer = require('gulp-autoprefixer');
+	csso = require('gulp-csso');
+	csscomb = require('gulp-csscomb');
+	uglify = require('gulp-uglify');
+	svgSprite = require('gulp-svg-sprite');
 
 function clean() { return del(['dist/*']) }
 function watch() {
@@ -19,8 +18,8 @@ function watch() {
 		server: { baseDir: "dist/" },
 		// tunnel: true
 	});
-	gulp.watch('src/layout/**/*.pug', layout);
-	gulp.watch('src/styles/**/*.less', styles);
+	gulp.watch('src/**/*.pug', layout);
+	gulp.watch('src/styles/**/*.scss', styles);
 	gulp.watch('src/scripts/**/*.js', scripts);
 	gulp.watch('src/fonts/**/*', fonts);
 	gulp.watch('src/img/**/*', img);
@@ -28,7 +27,7 @@ function watch() {
 }
 
 function layout() {
-	return gulp.src('src/layout/*.pug')
+	return gulp.src('src/*.pug')
 		.pipe(pug({
 			pretty: true
 		}))
@@ -37,15 +36,15 @@ function layout() {
 }
 function styles() {
 	return gulp.src([
-		'./node_modules/normalize.less/normalize.less',
-		'./src/styles/main.less'
+		'./node_modules/normalize.css/normalize.css',
+		'./src/styles/main.scss'
 	])
-		.pipe(less())
+		.pipe(sass().on('error', sass.logError))
 		.pipe(autoprefixer({
 			overrideBrowserslist: ['last 2 versions'],
 			cascade: false
 		}))
-		.pipe( concat('bundle.css') )
+		.pipe(concat('bundle.css'))
 		.pipe(csscomb())
 		.pipe(gulp.dest('dist/css/'))
 		.pipe(csso())
@@ -58,7 +57,7 @@ function scripts() {
 		'./node_modules/jquery/dist/jquery.js',
 		'./src/scripts/main.js'
 	])
-		.pipe( concat('bundle.js') )
+		.pipe(concat('bundle.js'))
 		.pipe(gulp.dest('dist/js/'))
 		.pipe(uglify())
 		.pipe(rename(function (path) { path.basename += ".min"; }))
@@ -82,12 +81,12 @@ function img() {
 function spriteSvg() {
 	return gulp.src('./src/img/sprite-svg/*.svg')
 		.pipe(svgSprite({
-				mode: {
-					stack: {
-						sprite: "../sprite.svg"
-					}
-				},
-			}
+			mode: {
+				stack: {
+					sprite: "../sprite.svg"
+				}
+			},
+		}
 		))
 		.pipe(gulp.dest('dist/img/'))
 		.pipe(browserSync.stream());
@@ -95,13 +94,11 @@ function spriteSvg() {
 
 gulp.task('watch', watch);
 gulp.task('clean', clean);
-
-gulp.task('layouts', layout);
-gulp.task('layouts', styles);
-gulp.task('layouts', scripts);
-gulp.task('layouts', fonts);
-gulp.task('layouts', img);
-gulp.task('layouts', spriteSvg);
-
-gulp.task('build', gulp.series(clean,layout,styles,scripts,fonts,img,spriteSvg));
+gulp.task('layout', layout);
+gulp.task('styles', styles);
+gulp.task('scripts', scripts);
+gulp.task('fonts', fonts);
+gulp.task('img', img);
+gulp.task('spriteSvg', spriteSvg);
+gulp.task('build', gulp.series(clean, layout, styles, scripts, fonts, img, spriteSvg));
 gulp.task('develop', gulp.series('build', 'watch'));

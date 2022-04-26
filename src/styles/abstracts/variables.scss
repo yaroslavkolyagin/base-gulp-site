@@ -1,0 +1,17 @@
+
+$font-sz-base: 16px;
+
+@use "sass:math";
+$rem: math.div(1rem, 16);
+
+$clr-black: #000000;
+$clr-white: #ffffff;
+
+$t: .3s;
+
+// @media (max-width: $media-)
+$media-1600: 1600px;
+$media-1400: 1400px;
+$media-1024: 1024px;
+$media-768: 768px;
+$media-480: 480px;
